@@ -103,16 +103,23 @@ if uploaded_file:
             k=3
         )
 
-        st.subheader("Top Matching Chunks")
+        retrieved_chunks = [
+            chunks[idx]
+            for idx in indices[0]
+        ]
 
-        for rank, idx in enumerate(indices[0], start=1):
+        answer_context = "\n\n".join(retrieved_chunks)
 
-            st.markdown(
-                f"### Match {rank}"
-            )
+        st.subheader("Answer")
 
-            st.write(chunks[idx])
+        st.write(
+            "Based on the most relevant parts of the document:"
+        )
 
-            st.write(
-                f"Distance: {distances[0][rank-1]:.4f}"
-            )
+        st.info(answer_context[:1500])
+
+        with st.expander("Show Retrieved Chunks"):
+            for rank, idx in enumerate(indices[0], start=1):
+                st.markdown(f"### Match {rank}")
+                st.write(chunks[idx])
+                st.write(f"Distance: {distances[0][rank-1]:.4f}")
