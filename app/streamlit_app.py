@@ -4,6 +4,15 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from sentence_transformers import SentenceTransformer
 import faiss
 import numpy as np
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
+
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=OPENAI_API_KEY)
+
 
 @st.cache_resource
 def load_embedding_model():
@@ -20,6 +29,32 @@ st.title("📄 AI PDF Chatbot")
 st.write(
     "Upload a PDF document and ask questions about its contents."
 )
+
+def generate_answer(question, context):
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a helpful RAG assistant. "
+                        "Answer using only the provided document context. "
+                        "If the answer is not in the context, say you cannot find it in the document."
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": f"Context:\n{context}\n\nQuestion:\n{question}"
+                }
+            ],
+            temperature=0.2
+        )
+
+        return response.choices[0].message.content
+
+    except Exception as error:
+        return f"OpenAI API error: {error}"
 
 uploaded_file = st.file_uploader(
     "Upload PDF",
@@ -110,13 +145,17 @@ if uploaded_file:
 
         answer_context = "\n\n".join(retrieved_chunks)
 
-        st.subheader("Answer")
+        st.subheader("AI Answer")
 
-        st.write(
-            "Based on the most relevant parts of the document:"
-        )
+        if not OPENAI_API_KEY:
+            st.error("OpenAI API key not found. Add it to your .env file.")
+        else:
+            answer = generate_answer(
+                question,
+                answer_context
+            )
 
-        st.info(answer_context[:1500])
+            st.success(answer)
 
         with st.expander("Show Retrieved Chunks"):
             for rank, idx in enumerate(indices[0], start=1):
