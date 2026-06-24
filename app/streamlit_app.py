@@ -15,7 +15,17 @@ st.set_page_config(page_title="AI PDF Chatbot")
 load_dotenv()
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-client = OpenAI(api_key=OPENAI_API_KEY)
+
+if not OPENAI_API_KEY:
+    try:
+        OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+    except Exception:
+        OPENAI_API_KEY = None
+
+client = None
+
+if OPENAI_API_KEY:
+    client = OpenAI(api_key=OPENAI_API_KEY)
 
 if not OPENAI_API_KEY and "OPENAI_API_KEY" in st.secrets:
     OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
@@ -26,6 +36,9 @@ def load_embedding_model():
 
 
 def generate_answer(question, context):
+    if client is None:
+        return "OpenAI API key not found. Please add it in Streamlit Secrets."
+    
     try:
         response = client.chat.completions.create(
             model="gpt-4o-mini",
