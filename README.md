@@ -1,8 +1,8 @@
 # AI PDF Chatbot with RAG
 
-An AI-powered PDF chatbot that allows users to upload PDF documents and ask natural language questions about their contents.
+An AI powered PDF chatbot that allows users to upload PDF documents and ask natural language questions about their contents.
 
-The application uses a Retrieval-Augmented Generation (RAG) pipeline that combines document retrieval, semantic search, vector embeddings, and Large Language Models (LLMs) to provide context-aware answers directly from uploaded documents.
+The application uses a Retrieval Augmented Generation (RAG) pipeline that combines document retrieval, semantic search, vector embeddings, and Large Language Models (LLMs) to provide context aware answers directly from uploaded documents.
 
 ---
 
@@ -13,9 +13,9 @@ The application uses a Retrieval-Augmented Generation (RAG) pipeline that combin
 * Automatic text chunking
 * Semantic embeddings using Sentence Transformers
 * Vector similarity search with FAISS
-* Retrieval-Augmented Generation (RAG)
-* OpenAI-powered question answering
-* Multi-turn conversational chat interface
+* Retrieval Augmented Generation (RAG)
+* OpenAI powered question answering
+* Multi turn conversational chat interface
 * Document statistics and chunk previews
 * Source retrieval transparency
 
@@ -29,7 +29,7 @@ The application uses a Retrieval-Augmented Generation (RAG) pipeline that combin
 
 ### NLP & AI
 
-* OpenAI GPT-4o Mini
+* OpenAI GPT 4o Mini
 * Sentence Transformers
 * LangChain Text Splitters
 
@@ -64,7 +64,7 @@ Semantic Similarity Search
      ↓
 Relevant Document Chunks
      ↓
-OpenAI GPT-4o Mini
+OpenAI GPT 4o Mini
      ↓
 Generated Answer
 ```
@@ -99,7 +99,7 @@ What is the second question in the document?
 What algorithms are discussed?
 ```
 
-The chatbot retrieves relevant sections of the document and generates context-aware responses.
+The chatbot retrieves relevant sections of the document and generates context aware responses.
 
 ---
 
@@ -211,7 +211,7 @@ http://localhost:8501
 
 This project demonstrates practical experience with:
 
-* Retrieval-Augmented Generation (RAG)
+* Retrieval Augmented Generation (RAG)
 * Large Language Models (LLMs)
 * OpenAI API Integration
 * Semantic Search
