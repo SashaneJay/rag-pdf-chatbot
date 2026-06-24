@@ -1,5 +1,9 @@
 # AI PDF Chatbot with RAG
 
+# Live Demo: https://rag-pdf-chatbot-gzffa4j4vpwkgpl6zzuxtt.streamlit.app/
+
+# Overview
+
 An AI powered PDF chatbot that allows users to upload PDF documents and ask natural language questions about their contents.
 
 The application uses a Retrieval Augmented Generation (RAG) pipeline that combines document retrieval, semantic search, vector embeddings, and Large Language Models (LLMs) to provide context aware answers directly from uploaded documents.
